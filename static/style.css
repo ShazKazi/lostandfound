@@ -1,0 +1,73 @@
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #65c7c5;
+}
+
+nav {
+    background: #5abbbb;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+nav a {
+    margin-left: 15px;
+    color: white;
+    text-decoration: none;
+}
+
+.hero {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.stats span {
+    margin: 10px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.cards {
+    margin-top: 30px;
+}
+
+.card {
+    display: inline-block;
+    margin: 10px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.form-container {
+    width: 300px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+input, textarea, select {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+
+button {
+    background: blue;
+    color: white;
+    padding: 10px;
+    border: none;
+}
+
+.item {
+    background: white;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 10px;
+}

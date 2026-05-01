@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lost & Found Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1F1C2C, #6C63FF, #00F2FE);
+    }
+
+    /* Navbar styling */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* padding: 15px 40px; */
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    nav h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #FF9A9E, #FBC2EB, #00F2FE);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Canvas for animated background */
+    #bgCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 160px 20px 120px; /* extra top padding to avoid overlap with navbar */
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #FF9A9E, #FBC2EB, #00F2FE);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      color: #e0e0e0;
+      margin-bottom: 50px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .stats span {
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 14px 24px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.08);
+      padding: 25px 35px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      transition: all 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.08);
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <h2>🎓 Lost & Found</h2>
+    <a href="/login">Login</a>
+  </nav>
+
+  <!-- Animated background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="hero">
+    <h1>🚀 Lost & Found Portal</h1>
+    <p>Find or report lost items in college</p>
+
+    <div class="stats">
+      <span>Lost {{lost}}</span>
+      <span>Found {{found}}</span>
+      <span>Total {{total}}</span>
+    </div>
+
+    <div class="cards">
+      <a href="/add" class="card">➕ Add Item</a>
+      <a href="/lost" class="card">🔍 Lost Items</a>
+      <a href="/found" class="card">📦 Found Items</a>
+    </div>
+  </div>
+
+<script>
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: Math.random() * 3 + 1,
+    dx: (Math.random() - 0.5) * 0.5,
+    dy: (Math.random() - 0.5) * 0.5
+  });
+}
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.fill();
+
+    p.x += p.dx;
+    p.y += p.dy;
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+</script>
+
+</body>
+</html>
